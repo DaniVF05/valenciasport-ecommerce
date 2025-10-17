@@ -231,97 +231,57 @@
 
     <script>
         const productos = [
-            { 
-                id: 1, 
-                nombre: 'Zapatillas UltraBoost X', 
-                precio: 150, 
-                categoria: 'Running', 
-                imagen: 'https://i1.t4s.cz//products/BB6161/ultraboost-x-124296-bb6161-960.jpg', 
-                rating: 4.8, 
-                ventas: 1250, 
-                stock: 45, 
-                descripcion: 'Tecnología Boost de amortiguación superior' 
-            },
-            { 
-                id: 2, 
-                nombre: 'Balón Pro Match', 
-                precio: 45, 
-                categoria: 'Fútbol', 
-                imagen: 'https://fairplaybo.vtexassets.com/arquivos/ids/518277/je8770.jpg?v=638773943063370000', 
-                rating: 4.9, 
-                ventas: 890, 
-                stock: 78, 
-                descripcion: 'Competición profesional, máxima trayectoria' 
-            },
-            { 
-                id: 3, 
-                nombre: 'Guantes Training Pro', 
-                precio: 35, 
-                categoria: 'Fitness', 
-                imagen: 'https://m.media-amazon.com/images/I/71eilZDrgWL._AC_SL1500_.jpg', 
-                rating: 4.6, 
-                ventas: 560, 
-                stock: 120, 
-                descripcion: 'Agarre y protección para entrenamiento intensivo' 
-            },
-            { 
-                id: 4, 
-                nombre: 'Mochila Deportiva Elite', 
-                precio: 65, 
-                categoria: 'Accesorios', 
-                imagen: 'https://images-cdn.ubuy.com.pl/68d694460431e115910722c3-nike-elite-pro-basketball-backpack-black.jpg', 
-                rating: 4.7, 
-                ventas: 720, 
-                stock: 34, 
-                descripcion: 'Compartimentos especiales para laptop y calzado' 
-            },
-            { 
-                id: 5, 
-                nombre: 'Camiseta Dry-Fit Runner', 
-                precio: 40, 
-                categoria: 'Running', 
-                imagen: 'https://i.pinimg.com/474x/8a/ca/01/8aca012fb4e210eec41f823a9b325713.jpg', 
-                rating: 4.5, 
-                ventas: 980, 
-                stock: 67, 
-                descripcion: 'Tecnología anti-humedad para mantenerte seco' 
-            },
-            { 
-                id: 6, 
-                nombre: 'Short Deportivo Performance', 
-                precio: 38, 
-                categoria: 'Fitness', 
-                imagen: 'https://i.pinimg.com/736x/34/83/b5/3483b5cc64fc72e6bad9e10844699ce3.jpg', 
-                rating: 4.4, 
-                ventas: 450, 
-                stock: 89, 
-                descripcion: 'Ligereza y ventilación para alto rendimiento' 
-            },
-            { 
-                id: 7, 
-                nombre: 'Botines Speed Pro', 
-                precio: 120, 
-                categoria: 'Fútbol', 
-                imagen: 'https://newsport.vtexassets.com/arquivos/ids/20118342-800-auto?v=638779819379100000&width=800&height=auto&aspect=true', 
-                rating: 4.9, 
-                ventas: 1100, 
-                stock: 23, 
-                descripcion: 'Diseño aerodinámico para máxima velocidad' 
-            },
-            { 
-                id: 8, 
-                nombre: 'Reloj Fitness Tracker', 
-                precio: 85, 
-                categoria: 'Accesorios', 
-                imagen: 'https://istarmax.com/wp-content/uploads/2022/01/s5-black-1024x1024.jpg', 
-                rating: 4.6, 
-                ventas: 670, 
-                stock: 56, 
-                descripcion: 'Monitor de ritmo cardíaco y GPS inteligente' 
-            }
+            // CATEGORÍA: RUNNING (5 Productos)
+            { id: 1, nombre: 'Zapatillas UltraBoost X', precio: 150, categoria: 'Running', imagen: 'https://i1.t4s.cz//products/BB6161/ultraboost-x-124296-bb6161-960.jpg', rating: 4.8, ventas: 1250, stock: 45, descripcion: 'Tecnología Boost de amortiguación superior' },
+            { id: 5, nombre: 'Camiseta Dry-Fit Runner', precio: 40, categoria: 'Running', imagen: 'https://i.pinimg.com/474x/8a/ca/01/8aca012fb4e210eec41f823a9b325713.jpg', rating: 4.5, ventas: 980, stock: 67, descripcion: 'Tecnología anti-humedad para mantenerte seco' },
+            { id: 13, nombre: 'Pantalón Jogger Térmico', precio: 70, categoria: 'Running', imagen: 'https://i.pinimg.com/originals/f0/ab/00/f0ab003ad29a75afbee4b41c8dbf04e5.jpg', rating: 4.3, ventas: 450, stock: 90, descripcion: 'Ideal para correr en climas fríos.' },
+            { id: 14, nombre: 'Gorra de Visera Plegable', precio: 25, categoria: 'Running', imagen: 'https://i.pinimg.com/736x/64/f4/75/64f475fbbebee9377294a2836093e482.jpg', rating: 4.6, ventas: 710, stock: 150, descripcion: 'Ultraligera y transpirable con máxima protección.' },
+            { id: 15, nombre: 'Calcetines Compresión Max', precio: 18, categoria: 'Running', imagen: 'https://i.pinimg.com/736x/86/76/6b/86766b0c312fe12d6d1596156ef65b5b.jpg', rating: 4.7, ventas: 890, stock: 200, descripcion: 'Mejora la circulación y reduce la fatiga muscular.' },
+
+            // CATEGORÍA: FÚTBOL (5 Productos)
+            { id: 2, nombre: 'Balón Pro Match', precio: 45, categoria: 'Fútbol', imagen: 'https://fairplaybo.vtexassets.com/arquivos/ids/518277/je8770.jpg?v=638773943063370000', rating: 4.9, ventas: 890, stock: 78, descripcion: 'Competición profesional, máxima trayectoria' },
+            { id: 7, nombre: 'Botines Speed Pro', precio: 120, categoria: 'Fútbol', imagen: 'https://newsport.vtexassets.com/arquivos/ids/20118342-800-auto?v=638779819379100000&width=800&height=auto&aspect=true', rating: 4.9, ventas: 1100, stock: 23, descripcion: 'Diseño aerodinámico para máxima velocidad' },
+            { id: 16, nombre: 'Canilleras Flex Pro', precio: 30, categoria: 'Fútbol', imagen: 'https://i.pinimg.com/474x/3c/8d/42/3c8d42ddef25401585e1795fb63fed5c.jpg', rating: 4.4, ventas: 620, stock: 110, descripcion: 'Máxima protección con peso mínimo y ajuste cómodo.' },
+            { id: 17, nombre: 'Guantes Portero Agarre X', precio: 60, categoria: 'Fútbol', imagen: 'https://i.pinimg.com/236x/e3/15/88/e315886d0ef3e0b39828f48fe2fae0c0.jpg', rating: 4.7, ventas: 780, stock: 55, descripcion: 'Palma de látex alemán para agarre superior.' },
+            { id: 18, nombre: 'Malla Térmica BaseLayer', precio: 50, categoria: 'Fútbol', imagen: 'https://i.pinimg.com/236x/6e/b6/ef/6eb6ef0f0ecf525cef86acd2204dad1d.jpg', rating: 4.5, ventas: 590, stock: 80, descripcion: 'Control de temperatura bajo el uniforme en clima frío.' },
+
+            // CATEGORÍA: FITNESS (5 Productos)
+            { id: 3, nombre: 'Guantes Training Pro', precio: 35, categoria: 'Fitness', imagen: 'https://m.media-amazon.com/images/I/71eilZDrgWL._AC_SL1500_.jpg', rating: 4.6, ventas: 560, stock: 120, descripcion: 'Agarre y protección para entrenamiento intensivo' },
+            { id: 6, nombre: 'Short Deportivo Performance', precio: 38, categoria: 'Fitness', imagen: 'https://i.pinimg.com/736x/34/83/b5/3483b5cc64fc72e6bad9e10844699ce3.jpg', rating: 4.4, ventas: 450, stock: 89, descripcion: 'Ligereza y ventilación para alto rendimiento' },
+            { id: 19, nombre: 'Colchoneta Yoga Antidesliz', precio: 45, categoria: 'Fitness', imagen: 'https://i.pinimg.com/474x/3a/02/89/3a0289467412c7d0e3e8134a7386147c.jpg', rating: 4.8, ventas: 910, stock: 130, descripcion: 'Grosor premium para mayor comodidad y estabilidad.' },
+            { id: 20, nombre: 'Mancuernas Ajustables (Par)', precio: 180, categoria: 'Fitness', imagen: 'https://i.pinimg.com/736x/aa/73/f8/aa73f84d0f17cb0abeef29869b1ce390.jpg', rating: 4.7, ventas: 420, stock: 30, descripcion: 'Peso regulable de 2 a 12 kg para entrenamiento en casa.' },
+            { id: 21, nombre: 'Cuerda de Salto Speed', precio: 22, categoria: 'Fitness', imagen: 'https://f.fcdn.app/imgs/5d19da/www.supergym.uy/sgymuy/efc4/original/catalogo/16768_Negro_1/1500-1500/cuerda-de-saltar-everlast-negro.jpg', rating: 4.5, ventas: 680, stock: 100, descripcion: 'Cable de acero, rodamientos de alta velocidad.' },
+
+            // CATEGORÍA: ACCESORIOS (5 Productos)
+            { id: 4, nombre: 'Mochila Deportiva Elite', precio: 65, categoria: 'Accesorios', imagen: 'https://images-cdn.ubuy.com.pl/68d694460431e115910722c3-nike-elite-pro-basketball-backpack-black.jpg', rating: 4.7, ventas: 720, stock: 34, descripcion: 'Compartimentos especiales para laptop y calzado' },
+            { id: 8, nombre: 'Reloj Fitness Tracker', precio: 85, categoria: 'Accesorios', imagen: 'https://istarmax.com/wp-content/uploads/2022/01/s5-black-1024x1024.jpg', rating: 4.6, ventas: 670, stock: 56, descripcion: 'Monitor de ritmo cardíaco y GPS inteligente' },
+            { id: 22, nombre: 'Botella Hidratación XXL', precio: 28, categoria: 'Accesorios', imagen: 'https://i.pinimg.com/736x/06/4e/1c/064e1c452092d0f2001406d8602663f0.jpg', rating: 4.9, ventas: 1050, stock: 180, descripcion: 'Capacidad de 2 litros con marcador de tiempo.' },
+            { id: 23, nombre: 'Toalla Deportiva Microfibra', precio: 15, categoria: 'Accesorios', imagen: 'https://i.pinimg.com/236x/3a/04/9d/3a049df65fbf907031c16d90ab0d9f1d.jpg', rating: 4.4, ventas: 540, stock: 250, descripcion: 'Secado rápido y compacta para el bolso.' },
+            { id: 24, nombre: 'Balanza Digital Smart', precio: 75, categoria: 'Accesorios', imagen: 'https://i.pinimg.com/236x/66/a3/15/66a315a2dce5b74c01b537cb2512b360.jpg', rating: 4.6, ventas: 380, stock: 70, descripcion: 'Mide grasa corporal, masa muscular y más.' },
+            
+            // CATEGORÍA: BÁSQUETBOL (5 Productos)
+            { id: 25, nombre: 'Balón Baloncesto Oficial', precio: 55, categoria: 'Básquetbol', imagen: 'https://i.pinimg.com/236x/65/55/23/655523db71593b80d5dfccafdfd86b80.jpg', rating: 4.8, ventas: 620, stock: 40, descripcion: 'Agarre profundo para control total en cancha.' },
+            { id: 26, nombre: 'Zapatillas High Top Defender', precio: 135, categoria: 'Básquetbol', imagen: 'https://i.pinimg.com/236x/7f/74/6a/7f746ae34b92e4e21aedbc8aea4cee45.jpg', rating: 4.9, ventas: 810, stock: 25, descripcion: 'Alto soporte de tobillo y amortiguación zonal.' },
+            { id: 27, nombre: 'Jersey de Equipo City', precio: 60, categoria: 'Básquetbol', imagen: 'https://i.pinimg.com/736x/89/cb/68/89cb68cf77e3b2a53960cf72c6174ee8.jpg', rating: 4.5, ventas: 550, stock: 95, descripcion: 'Tela transpirable, corte amplio y diseño de equipo.' },
+            { id: 28, nombre: 'Manguitos de Compresión', precio: 20, categoria: 'Básquetbol', imagen: 'https://www.landclothes.com/9025-thickbox_default/manguito-compresion-unisex-dual.jpg', rating: 4.3, ventas: 400, stock: 150, descripcion: 'Soporte muscular en brazos para mejor rendimiento.' },
+            { id: 29, nombre: 'Red de Aro Reforzada', precio: 15, categoria: 'Básquetbol', imagen: 'https://i.pinimg.com/736x/d3/fd/d8/d3fdd81083d2cdd0101285c0d11f5f7b.jpg', rating: 4.6, ventas: 350, stock: 180, descripcion: 'Alta durabilidad para uso en exteriores e interiores.' },
+
+            // CATEGORÍA: NATACIÓN (5 Productos)
+            { id: 30, nombre: 'Gafas de Natación Shark', precio: 25, categoria: 'Natación', imagen: 'https://i.pinimg.com/736x/1d/0d/66/1d0d66e54a64fc1ecdcd572adb23a8f5.jpg', rating: 4.7, ventas: 790, stock: 120, descripcion: 'Anti-vaho, protección UV y ajuste cómodo.' },
+            { id: 31, nombre: 'Gorro Silicona Race', precio: 12, categoria: 'Natación', imagen: 'https://i.pinimg.com/474x/ef/74/85/ef7485b8b999f3c353c52f66419dcfe8.jpg', rating: 4.5, ventas: 650, stock: 200, descripcion: 'Ajuste aerodinámico y durabilidad para competición.' },
+            { id: 32, nombre: 'Aletas de Entrenamiento', precio: 45, categoria: 'Natación', imagen: 'https://i.pinimg.com/originals/1c/10/2d/1c102dad5cf61780530b30e58bbfefcb.jpg', rating: 4.6, ventas: 510, stock: 75, descripcion: 'Mejora la técnica y potencia de patada.' },
+            { id: 33, nombre: 'Tabla de Patada AquaFloat', precio: 18, categoria: 'Natación', imagen: 'https://www.natacionyequipamiento.es/wp-content/uploads/2016/02/tabla-natacion-grande-piscina-47x28-film-plastico-repel-water-solude.jpg', rating: 4.4, ventas: 390, stock: 100, descripcion: 'Ayuda a enfocarse en el tren inferior y mantener la posición.' },
+            { id: 34, nombre: 'Traje de Baño Competición', precio: 75, categoria: 'Natación', imagen: 'https://i.pinimg.com/236x/2e/75/67/2e756761b8ea2e24479eea546294069d.jpg', rating: 4.8, ventas: 580, stock: 60, descripcion: 'Material hidrodinámico de secado rápido y alto rendimiento.' },
+
+            // CATEGORÍA: CICLISMO (5 Productos)
+            { id: 35, nombre: 'Casco Aerodinámico Pro', precio: 95, categoria: 'Ciclismo', imagen: 'https://i.pinimg.com/236x/ca/e7/67/cae7677dcd9bc688b3e08258025d12c7.jpg', rating: 4.9, ventas: 480, stock: 50, descripcion: 'Máxima seguridad, ventilación y diseño aerodinámico.' },
+            { id: 36, nombre: 'Guantes de Ciclismo Gel', precio: 30, categoria: 'Ciclismo', imagen: 'https://i.pinimg.com/474x/1f/c7/4c/1fc74cb080021eb4a227d303b2ffbba2.jpg', rating: 4.7, ventas: 350, stock: 110, descripcion: 'Acolchado de gel para absorción de impactos y comodidad.' },
+            { id: 37, nombre: 'Luz Delantera LED Recargable', precio: 25, categoria: 'Ciclismo', imagen: 'https://f.fcdn.app/imgs/40590a/www.clemur.uy/imbauy/7fbc/original/catalogo/7798378042809_7798378042809_8/1500-1500/kit-luces-led-delantera-y-trasera-bicicleta-recargable-usb-color-negro-imback-kit-luces-led-delantera-y-trasera-bicicleta-recargable-usb-color-negro-imback.jpg', rating: 4.5, ventas: 520, stock: 140, descripcion: 'Alta visibilidad para rodadas nocturnas, recarga USB.' },
+            { id: 38, nombre: 'Soporte para Teléfono Bici', precio: 18, categoria: 'Ciclismo', imagen: 'https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/202308/28/00189041204572____1__1200x1200.jpg', rating: 4.6, ventas: 410, stock: 90, descripcion: 'Agarre seguro, resistente a vibraciones y rotación 360°.' },
+            { id: 39, nombre: 'Kit de Herramientas Portátil', precio: 40, categoria: 'Ciclismo', imagen: 'https://contents.mediadecathlon.com/p2281662/k$fda228835156b4803aadad92cfd19887/caja-herramientas-bici-500.jpg', rating: 4.4, ventas: 300, stock: 80, descripcion: 'Para reparaciones básicas en el camino.' }
         ];
 
-        const categorias = ['Todos', 'Running', 'Fútbol', 'Fitness', 'Accesorios'];
+        const categorias = ['Todos', 'Running', 'Fútbol', 'Fitness', 'Accesorios', 'Básquetbol', 'Natación', 'Ciclismo'];
 
         let estado = {
             carrito: [],
@@ -589,7 +549,10 @@
             html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-bottom: 32px;">';
             html += '<div>';
             html += '<p style="font-weight: 700; margin-bottom: 12px;">ValenciaSport</p>';
-            html += '<p style="font-size: 13px; color: #ccc;">Los mejores productos deportivos de alta calidad desde 2025.</p>';
+            html += '<p style="font-size: 13px; color: #ccc; margin-bottom: 6px;">**Contáctanos**</p>';
+            html += '<p style="font-size: 13px; color: #ccc; margin-bottom: 6px;">📞: 75976768</p>';
+            html += '<p style="font-size: 13px; color: #ccc; margin-bottom: 6px;">📧: dflow6813@gmail.com</p>';
+            html += '<p style="font-size: 13px; color: #ccc; margin-bottom: 6px;">📍: Cochabamba, Bolivia</p>';
             html += '</div>';
             html += '<div>';
             html += '<p style="font-weight: 700; margin-bottom: 12px;">Categorías</p>';
