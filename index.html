@@ -1,14 +1,3 @@
-¡Hecho\! He actualizado las URLs de tus productos y he realizado ajustes en el estilo CSS y en el código JavaScript para asegurar que las imágenes se carguen correctamente, se vean bien en las tarjetas de producto, y se mantenga la estética de tu e-commerce **ValenciaSport**.
-
-Específicamente, he hecho estos cambios:
-
-1.  **Actualización de URLs** en el arreglo `productos`.
-2.  **Ajuste de Estilo CSS** para la clase `.product-image` para que maneje la imagen correctamente.
-3.  **Ajuste de la Tarjeta** en el `render()` para mostrar la etiqueta `<img>` con `object-fit: cover` para que las imágenes se ajusten sin distorsionarse.
-
-Aquí tienes el código HTML y JavaScript completo y corregido:
-
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -112,24 +101,22 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
             transform: translateY(-4px);
         }
 
-        /* ESTILO ADAPTADO PARA IMÁGENES REALES */
         .product-image {
-            /* Se elimina el degradado y el contenido centrado de emoji */
             background: white; 
             height: 200px;
             width: 100%;
-            overflow: hidden; /* Asegura que la imagen no se salga */
+            overflow: hidden; 
         }
         
         .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+            object-fit: cover; 
             transition: transform 0.3s ease;
         }
 
         .product-card:hover .product-image img {
-            transform: scale(1.05); /* Efecto zoom al pasar el mouse */
+            transform: scale(1.05); 
         }
 
         .price {
@@ -215,7 +202,7 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
             height: 100vh;
             border-radius: 8px 0 0 8px;
             display: flex;
-            flex-direction: column; /* Asegura que el contenido y el footer se alineen */
+            flex-direction: column; 
         }
 
         .modal-content-wrapper {
@@ -243,7 +230,6 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
     <div id="app"></div>
 
     <script>
-        // DATOS DEL SISTEMA CON LAS NUEVAS URLS DE IMAGEN
         const productos = [
             { 
                 id: 1, 
@@ -337,7 +323,6 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
 
         const categorias = ['Todos', 'Running', 'Fútbol', 'Fitness', 'Accesorios'];
 
-        // ESTADO DE LA APLICACIÓN
         let estado = {
             carrito: [],
             menuAbierto: false,
@@ -347,7 +332,6 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
             ordenar: 'destacado'
         };
 
-        // FUNCIONES PRINCIPALES
         function agregarAlCarrito(producto) {
             const existe = estado.carrito.find(item => item.id === producto.id);
             if (existe) {
@@ -440,7 +424,6 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
             render();
         }
 
-        // RENDER COMPLETO
         function render() {
             const productosFiltrados = filtrarProductos();
             const totalProductos = estado.carrito.reduce((total, item) => total + item.cantidad, 0);
@@ -448,7 +431,6 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
 
             let html = '';
 
-            // HEADER
             html += '<header class="header sticky top-0 z-50 shadow-sm">';
             html += '<div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">';
             html += '<div class="flex items-center space-x-2 cursor-pointer" onclick="setCategoriaActiva(\'Todos\'); setBusqueda(\'\');">';
@@ -484,14 +466,12 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
 
             html += '</header>';
 
-            // HERO
             html += '<div class="hero">';
             html += '<h1>Equípate para la Victoria</h1>';
             html += '<p>Los mejores productos deportivos de alta calidad</p>';
             html += '<button onclick="setCategoriaActiva(\'Todos\');" class="btn-primary">Explorar Productos</button>';
             html += '</div>';
 
-            // SEARCH
             html += '<div class="search-container">';
             html += '<input type="text" placeholder="Buscar productos..." value="' + estado.busqueda + '" onkeyup="setBusqueda(this.value)" class="search-input">';
             html += '<div class="filters">';
@@ -511,7 +491,6 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
             html += '</div>';
             html += '</div>';
 
-            // PRODUCTS
             html += '<div class="max-w-7xl mx-auto px-4 py-12">';
             html += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">';
             html += '<h2 class="section-title">' + (estado.categoriaActiva === 'Todos' ? 'Productos Destacados' : estado.categoriaActiva) + '</h2>';
@@ -528,7 +507,6 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
                 productosFiltrados.forEach(producto => {
                     html += '<div class="product-card">';
                     
-                    // Renderizado de Imagen para Tarjeta
                     html += '<div class="product-image">'; 
                     html += '<img src="' + producto.imagen + '" alt="' + producto.nombre + '">';
                     html += '</div>';
@@ -540,7 +518,7 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
                     html += '<div class="rating" style="margin-bottom: 8px;">★ ' + producto.rating + ' (' + producto.ventas + ' vendidos)</div>';
                     html += '<div style="display: flex; justify-content: space-between; align-items: center;">';
                     html += '<span class="price">$' + producto.precio + '</span>';
-                    // Nota: Se reemplaza &quot; para manejar comillas dentro de la cadena JSON para el onclick
+            
                     html += '<button onclick="agregarAlCarrito(' + JSON.stringify(producto).replace(/"/g, '&quot;') + ')" class="btn-primary">Añadir</button>';
                     html += '</div>';
                     html += '<div style="margin-top: 8px; font-size: 12px; color: ' + (producto.stock < 30 ? '#d32f2f' : '#388e3c') + '; font-weight: 600;">Stock: ' + producto.stock + '</div>';
@@ -551,7 +529,6 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
             }
             html += '</div>';
 
-            // MODAL CARRITO
             if (estado.mostrarCarrito) {
                 html += '<div class="fixed inset-0 bg-black bg-opacity-40 modal-overlay z-50 flex items-start justify-end animate-fade-in">';
                 html += '<div class="modal animate-slide-in">';
@@ -560,7 +537,7 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
                 html += '<button onclick="toggleCarrito()" style="background: none; border: none; font-size: 24px; cursor: pointer;">✕</button>';
                 html += '</div>';
 
-                html += '<div class="modal-content-wrapper">'; // Usar la nueva clase para el scroll
+                html += '<div class="modal-content-wrapper">'; 
                 if (estado.carrito.length === 0) {
                     html += '<div style="text-align: center; padding: 40px 20px; color: #999;">';
                     html += '<p style="font-size: 48px; margin-bottom: 16px;">🛒</p>';
@@ -570,7 +547,7 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
                     estado.carrito.forEach(item => {
                         html += '<div style="display: flex; gap: 12px; margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 4px;">';
                         
-                        // Renderizado de Imagen para Carrito
+    
                         html += '<div style="width: 60px; height: 60px; border-radius: 4px; overflow: hidden; flex-shrink: 0; border: 1px solid #ccc;">';
                         html += '<img src="' + item.imagen + '" alt="' + item.nombre + '" style="width: 100%; height: 100%; object-fit: cover;">';
                         html += '</div>';
@@ -588,7 +565,7 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
                         html += '</div>';
                     });
 
-                    // Sección de totales y compra
+                    
                     html += '<div style="border-top: 1px solid #e5e5e5; margin-top: 16px; padding-top: 16px;">';
                     html += '<div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">';
                     html += '<span>Subtotal</span>';
@@ -605,12 +582,12 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
                     html += '<button onclick="finalizarCompra()" class="btn-primary" style="width: 100%; padding: 12px;">Finalizar Compra</button>';
                     html += '</div>';
                 }
-                html += '</div>'; // Fin modal-content-wrapper
+                html += '</div>'; 
                 html += '</div>';
                 html += '</div>';
             }
 
-            // FOOTER
+    
             html += '<div class="footer">';
             html += '<div class="max-w-7xl mx-auto">';
             html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-bottom: 32px;">';
@@ -640,7 +617,7 @@ Aquí tienes el código HTML y JavaScript completo y corregido:
             document.getElementById('app').innerHTML = html;
         }
 
-        // INICIAR APLICACIÓN
+
         render();
     </script>
 </body>
