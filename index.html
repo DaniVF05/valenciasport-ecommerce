@@ -105,18 +105,18 @@
             background: white; 
             height: 200px;
             width: 100%;
-            overflow: hidden; 
+            overflow: hidden;
         }
         
         .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; 
+            object-fit: cover;
             transition: transform 0.3s ease;
         }
 
         .product-card:hover .product-image img {
-            transform: scale(1.05); 
+            transform: scale(1.05);
         }
 
         .price {
@@ -202,7 +202,7 @@
             height: 100vh;
             border-radius: 8px 0 0 8px;
             display: flex;
-            flex-direction: column; 
+            flex-direction: column;
         }
 
         .modal-content-wrapper {
@@ -280,7 +280,7 @@
                 nombre: 'Camiseta Dry-Fit Runner', 
                 precio: 40, 
                 categoria: 'Running', 
-                imagen: 'https://acdn-us.mitiendanube.com/stores/144/702/products/remera-hombre-dry-fit-negra-reusch-gris-frente-7955656dbadd092ab817151959554041-1024-1024.jpg', 
+                imagen: 'https://i.pinimg.com/474x/8a/ca/01/8aca012fb4e210eec41f823a9b325713.jpg', 
                 rating: 4.5, 
                 ventas: 980, 
                 stock: 67, 
@@ -291,7 +291,7 @@
                 nombre: 'Short Deportivo Performance', 
                 precio: 38, 
                 categoria: 'Fitness', 
-                imagen: 'https://freshapparelpty.com/cdn/shop/files/short-deportivo-reebok-logo-y-zipper-ajustados.png?v=1751321031', 
+                imagen: 'https://i.pinimg.com/736x/34/83/b5/3483b5cc64fc72e6bad9e10844699ce3.jpg', 
                 rating: 4.4, 
                 ventas: 450, 
                 stock: 89, 
@@ -518,7 +518,6 @@
                     html += '<div class="rating" style="margin-bottom: 8px;">★ ' + producto.rating + ' (' + producto.ventas + ' vendidos)</div>';
                     html += '<div style="display: flex; justify-content: space-between; align-items: center;">';
                     html += '<span class="price">$' + producto.precio + '</span>';
-            
                     html += '<button onclick="agregarAlCarrito(' + JSON.stringify(producto).replace(/"/g, '&quot;') + ')" class="btn-primary">Añadir</button>';
                     html += '</div>';
                     html += '<div style="margin-top: 8px; font-size: 12px; color: ' + (producto.stock < 30 ? '#d32f2f' : '#388e3c') + '; font-weight: 600;">Stock: ' + producto.stock + '</div>';
@@ -537,7 +536,7 @@
                 html += '<button onclick="toggleCarrito()" style="background: none; border: none; font-size: 24px; cursor: pointer;">✕</button>';
                 html += '</div>';
 
-                html += '<div class="modal-content-wrapper">'; 
+                html += '<div class="modal-content-wrapper">';
                 if (estado.carrito.length === 0) {
                     html += '<div style="text-align: center; padding: 40px 20px; color: #999;">';
                     html += '<p style="font-size: 48px; margin-bottom: 16px;">🛒</p>';
@@ -547,7 +546,6 @@
                     estado.carrito.forEach(item => {
                         html += '<div style="display: flex; gap: 12px; margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 4px;">';
                         
-    
                         html += '<div style="width: 60px; height: 60px; border-radius: 4px; overflow: hidden; flex-shrink: 0; border: 1px solid #ccc;">';
                         html += '<img src="' + item.imagen + '" alt="' + item.nombre + '" style="width: 100%; height: 100%; object-fit: cover;">';
                         html += '</div>';
@@ -565,7 +563,6 @@
                         html += '</div>';
                     });
 
-                    
                     html += '<div style="border-top: 1px solid #e5e5e5; margin-top: 16px; padding-top: 16px;">';
                     html += '<div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">';
                     html += '<span>Subtotal</span>';
@@ -582,12 +579,11 @@
                     html += '<button onclick="finalizarCompra()" class="btn-primary" style="width: 100%; padding: 12px;">Finalizar Compra</button>';
                     html += '</div>';
                 }
-                html += '</div>'; 
+                html += '</div>';
                 html += '</div>';
                 html += '</div>';
             }
 
-    
             html += '<div class="footer">';
             html += '<div class="max-w-7xl mx-auto">';
             html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-bottom: 32px;">';
@@ -617,9 +613,7 @@
             document.getElementById('app').innerHTML = html;
         }
 
-
         render();
     </script>
 </body>
 </html>
-```
