@@ -50,6 +50,7 @@
         const SUPABASE_URL = 'https://wzbpkjieyfytbaklrtwu.supabase.co'; 
         const SUPABASE_ANON_KEY = 'sb_publishable_aK6B6_6DKz2MH3EgZYAx-w_yrY-V5wh';
         
+        // CORRECCIÓN: La inicialización de 'supabase' va DESPUÉS de definir las constantes.
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         let productos = []; 
