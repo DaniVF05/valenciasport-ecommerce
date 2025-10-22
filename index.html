@@ -1,293 +1,296 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ValenciaSport - E-Commerce</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ValenciaSport - E-Commerce</title>
     
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #f5f5f5; font-family: system-ui, -apple-system, sans-serif; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { background: white; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .product-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; }
-        .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; }
-        .btn-primary { background: #ff5722; color: white; }
-        .btn-primary:hover { background: #e64a19; }
-        .cart { position: fixed; right: 0; top: 0; width: 400px; height: 100vh; background: white; box-shadow: -2px 0 8px rgba(0,0,0,0.2); transform: translateX(100%); transition: transform 0.3s; z-index: 1000; }
-        .cart.open { transform: translateX(0); }
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
-        .overlay.show { display: block; }
-        
-        .category-nav-item { padding: 8px 16px; margin: 0 5px; border-radius: 20px; cursor: pointer; transition: background 0.2s, color 0.2s; font-weight: 500; color: #555; }
-        .category-nav-item.active { background: #ff5722; color: white; font-weight: 600; }
-        .category-nav-item:hover { background: #ffe0b2; }
-    </style>
+    <link rel="icon" type="image/png" href="/favicon.png"> 
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f5f5f5; font-family: system-ui, -apple-system, sans-serif; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { background: white; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .product-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; }
+        .btn-primary { background: #ff5722; color: white; }
+        .btn-primary:hover { background: #e64a19; }
+        .cart { position: fixed; right: 0; top: 0; width: 400px; height: 100vh; background: white; box-shadow: -2px 0 8px rgba(0,0,0,0.2); transform: translateX(100%); transition: transform 0.3s; z-index: 1000; }
+        .cart.open { transform: translateX(0); }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
+        .overlay.show { display: block; }
+        
+        .category-nav-item { padding: 8px 16px; margin: 0 5px; border-radius: 20px; cursor: pointer; transition: background 0.2s, color 0.2s; font-weight: 500; color: #555; }
+        .category-nav-item.active { background: #ff5722; color: white; font-weight: 600; }
+        .category-nav-item:hover { background: #ffe0b2; }
+    </style>
 </head>
 <body>
-    <div class="overlay" id="overlay" onclick="cerrarCarrito()"></div>
-    
-    <div class="header">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <h1 style="font-size: 28px; font-weight: 700; color: #333;">⚡ ValenciaSport</h1>
-            <button onclick="toggleCarrito()" class="btn btn-primary" id="btnCarrito">
-                🛒 Carrito (<span id="cartCount">0</span>)
-            </button>
-        </div>
-    </div>
+    <div class="overlay" id="overlay" onclick="cerrarCarrito()"></div>
+    
+    <div class="header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="font-size: 28px; font-weight: 700; color: #333;">⚡ ValenciaSport</h1>
+            <button onclick="toggleCarrito()" class="btn btn-primary" id="btnCarrito">
+                🛒 Carrito (<span id="cartCount">0</span>)
+            </button>
+        </div>
+    </div>
 
-    <div style="background: white; padding: 10px 0; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-        <div class="container" style="display: flex; justify-content: center; flex-wrap: wrap;" id="categoryNav">
-            <span class="category-nav-item active" onclick="setCategoriaActiva('Todos')">Todos</span>
-            </div>
-    </div>
+    <div style="background: white; padding: 10px 0; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <div class="container" style="display: flex; justify-content: center; flex-wrap: wrap;" id="categoryNav">
+            <span class="category-nav-item active" onclick="setCategoriaActiva('Todos')">Todos</span>
+            </div>
+    </div>
 
-    <div class="container">
-        <div id="productos" class="product-grid"></div>
-        <div id="loading" style="text-align: center; padding: 60px;">
-            <p style="font-size: 48px;">⏳</p>
-            <p style="font-size: 20px; margin-top: 16px;">Cargando productos...</p>
-        </div>
-        <div id="error" style="display: none; text-align: center; padding: 60px;">
-            <p style="font-size: 48px;">❌</p>
-            <p style="font-size: 20px; margin-top: 16px; color: #d32f2f;">Error de Conexión o Carga</p>
-            <p style="margin-top: 8px; color: #666;">Revisa la consola (F12) para más detalles o verifica el nombre de la tabla.</p>
-            <button onclick="location.reload()" class="btn btn-primary" style="margin-top: 20px;">Reintentar</button>
-        </div>
-    </div>
+    <div class="container">
+        <div id="productos" class="product-grid"></div>
+        <div id="loading" style="text-align: center; padding: 60px;">
+            <p style="font-size: 48px;">⏳</p>
+            <p style="font-size: 20px; margin-top: 16px;">Cargando productos...</p>
+        </div>
+        <div id="error" style="display: none; text-align: center; padding: 60px;">
+            <p style="font-size: 48px;">❌</p>
+            <p style="font-size: 20px; margin-top: 16px; color: #d32f2f;">Error de Conexión o Carga</p>
+            <p style="margin-top: 8px; color: #666;">Revisa la consola (F12) para más detalles o verifica el nombre de la tabla.</p>
+            <button onclick="location.reload()" class="btn btn-primary" style="margin-top: 20px;">Reintentar</button>
+        </div>
+    </div>
 
-    <div class="cart" id="cart">
-        <div style="padding: 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="font-size: 20px; font-weight: 700;">🛒 Tu Carrito</h2>
-            <button onclick="cerrarCarrito()" style="background: none; border: none; font-size: 24px; cursor: pointer;">✕</button>
-        </div>
-        <div id="cartItems" style="padding: 20px; overflow-y: auto; height: calc(100vh - 200px);"></div>
-        <div style="padding: 20px; border-top: 1px solid #ddd;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 16px; font-size: 18px; font-weight: 700;">
-                <span>Total:</span>
-                <span id="cartTotal">$0.00</span>
-            </div>
-            <button onclick="finalizarCompra()" class="btn btn-primary" style="width: 100%;">Finalizar Compra</button>
-        </div>
-    </div>
+    <div class="cart" id="cart">
+        <div style="padding: 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="font-size: 20px; font-weight: 700;">🛒 Tu Carrito</h2>
+            <button onclick="cerrarCarrito()" style="background: none; border: none; font-size: 24px; cursor: pointer;">✕</button>
+        </div>
+        <div id="cartItems" style="padding: 20px; overflow-y: auto; height: calc(100vh - 200px);"></div>
+        <div style="padding: 20px; border-top: 1px solid #ddd;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 16px; font-size: 18px; font-weight: 700;">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button onclick="finalizarCompra()" class="btn btn-primary" style="width: 100%;">Finalizar Compra</button>
+        </div>
+    </div>
 
-    <script>
-        const SUPABASE_URL = 'https://wzbqrletyfybalxrhwuu.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6YnFybGV0eWZ5YmFseHJod3V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2NTgzMjksImV4cCI6MjA3NjIzNDMyOX0.QudV22Ma8TzPaIRHVT2onElsJ3r39TLBnexOIFOv7BA';
-        
-        console.log('Iniciando app...');
-        
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        let carrito = [];
-        let productos = [];
-        let categoriaActiva = 'Todos';
+    <script>
+        const SUPABASE_URL = 'https://wzbqrletyfybalxrhwuu.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6YnFybGV0eWZ5YmFseHJod3V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA2NTgzMjksImV4cCI6MjA3NjIzNDMyOX0.QudV22Ma8TzPaIRHVT2onElsJ3r39TLBnexOIFOv7BA';
+        
+        console.log('Iniciando app...');
+        
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        let carrito = [];
+        let productos = [];
+        let categoriaActiva = 'Todos';
 
-        const IMAGE_URL_MAP = {
-            'zapatillas': 'https://i1.t4s.cz//products/BB6161/ultraboost-x-124296-bb6161-960.jpg',
-            'balon': 'https://fairplaybo.vtexassets.com/arquivos/ids/518277/je8770.jpg?v=638773943063370000',
-            'guantes': 'https://m.media-amazon.com/images/I/71eilZDrgWL._AC_SL1500_.jpg',
-            'mochila': 'https://images-cdn.ubuy.com.pl/68d694460431e115910722c3-nike-elite-pro-basketball-backpack-black.jpg',
-            'camiseta': 'https://acdn-us.mitiendanube.com/stores/144/702/products/remera-hombre-dry-fit-negra-reusch-gris-frente-7955656dbadd092ab817151959554041-1024-1024.jpg',
-            'short': 'https://freshapparelpty.com/cdn/shop/files/short-deportivo-reebok-logo-y-zipper-ajustados.png?v=1751321031',
-            'botines': 'https://newsport.vtexassets.com/arquivos/ids/20118342-800-auto?v=638779819379100000&width=800&height=auto&aspect=true',
-            'reloj': 'https://istarmax.com/wp-content/uploads/2022/01/s5-black-1024x1024.jpg',
-        };
-        
-        function getImageUrl(product) {
-            if (product.imagen && product.imagen.startsWith('http')) {
-                return product.imagen;
-            }
-            const clave = (product.categoria || product.nombre || '').toLowerCase().trim();
-            return IMAGE_URL_MAP[clave] || 'https://placehold.co/300x200?text=SIN+IMAGEN';
-        }
+        const IMAGE_URL_MAP = {
+            'zapatillas': 'https://i1.t4s.cz//products/BB6161/ultraboost-x-124296-bb6161-960.jpg',
+            'balon': 'https://fairplaybo.vtexassets.com/arquivos/ids/518277/je8770.jpg?v=638773943063370000',
+            'guantes': 'https://m.media-amazon.com/images/I/71eilZDrgWL._AC_SL1500_.jpg',
+            'mochila': 'https://images-cdn.ubuy.com.pl/68d694460431e115910722c3-nike-elite-pro-basketball-backpack-black.jpg',
+            'camiseta': 'https://acdn-us.mitiendanube.com/stores/144/702/products/remera-hombre-dry-fit-negra-reusch-gris-frente-7955656dbadd092ab817151959554041-1024-1024.jpg',
+            'short': 'https://freshapparelpty.com/cdn/shop/files/short-deportivo-reebok-logo-y-zipper-ajustados.png?v=1751321031',
+            'botines': 'https://newsport.vtexassets.com/arquivos/ids/20118342-800-auto?v=638779819379100000&width=800&height=auto&aspect=true',
+            'reloj': 'https://istarmax.com/wp-content/uploads/2022/01/s5-black-1024x1024.jpg',
+        };
+        
+        function getImageUrl(product) {
+            if (product.imagen && product.imagen.startsWith('http')) {
+                return product.imagen;
+            }
+            const clave = (product.categoria || product.nombre || '').toLowerCase().trim();
+            return IMAGE_URL_MAP[clave] || 'https://placehold.co/300x200?text=SIN+IMAGEN';
+        }
 
-        async function cargarProductos() {
-            try {
-                console.log('Conectando con Supabase...');
-                
-                const { data, error } = await supabaseClient
-                    .from('productos')
-                    .select('*');
+        async function cargarProductos() {
+            try {
+                console.log('Conectando con Supabase...');
+                
+                const { data, error } = await supabaseClient
+                    .from('productos')
+                    .select('*');
 
-                console.log('Respuesta:', { data, error });
+                console.log('Respuesta:', { data, error });
 
-                if (error) throw error;
+                if (error) throw error;
 
-                if (!data || data.length === 0) {
-                    throw new Error('No hay productos en la base de datos o RLS no permite leer.');
-                }
+                if (!data || data.length === 0) {
+                    throw new Error('No hay productos en la base de datos o RLS no permite leer.');
+                }
 
-                productos = data;
-                console.log('Productos cargados:', productos.length);
-                
-                generarMenuCategorias();
-                mostrarProductos();
-                
-            } catch (err) {
-                console.error('Error al cargar productos:', err);
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').style.display = 'block';
-            }
-        }
-        
-        function generarMenuCategorias() {
-            const categorias = [...new Set(productos.map(p => p.categoria))].filter(c => c && c.trim() !== '');
-            const nav = document.getElementById('categoryNav');
-            
-            categorias.forEach(cat => {
-                const item = document.createElement('span');
-                item.className = 'category-nav-item';
-                item.textContent = cat;
-                item.onclick = () => setCategoriaActiva(cat);
-                nav.appendChild(item);
-            });
-        }
-        
-        function setCategoriaActiva(nuevaCategoria) {
-            categoriaActiva = nuevaCategoria;
-            
-            document.querySelectorAll('#categoryNav .category-nav-item').forEach(item => {
-                item.classList.remove('active');
-                if (item.textContent === nuevaCategoria) {
-                    item.classList.add('active');
-                }
-            });
-            
-            mostrarProductos();
-        }
+                productos = data;
+                console.log('Productos cargados:', productos.length);
+                
+                generarMenuCategorias();
+                mostrarProductos();
+                
+            } catch (err) {
+                console.error('Error al cargar productos:', err);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+        
+        function generarMenuCategorias() {
+            const categorias = [...new Set(productos.map(p => p.categoria))].filter(c => c && c.trim() !== '');
+            const nav = document.getElementById('categoryNav');
+            
+            categorias.forEach(cat => {
+                const item = document.createElement('span');
+                item.className = 'category-nav-item';
+                item.textContent = cat;
+                item.onclick = () => setCategoriaActiva(cat);
+                nav.appendChild(item);
+            });
+        }
+        
+        function setCategoriaActiva(nuevaCategoria) {
+            categoriaActiva = nuevaCategoria;
+            
+            document.querySelectorAll('#categoryNav .category-nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.textContent === nuevaCategoria) {
+                    item.classList.add('active');
+                }
+            });
+            
+            mostrarProductos();
+        }
 
-        function mostrarProductos() {
-            document.getElementById('loading').style.display = 'none';
-            const container = document.getElementById('productos');
-            
-            const productosFiltrados = categoriaActiva === 'Todos'
-                ? productos
-                : productos.filter(p => p.categoria === categoriaActiva);
-                
-            if (productosFiltrados.length === 0) {
-                container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px;"><p style="font-size: 24px;">No hay productos disponibles en esta categoría.</p></div>';
-                return;
-            }
-            
-            container.innerHTML = productosFiltrados.map(p => {
-                const imageUrl = getImageUrl(p);
-                
-                // Sanitizar el objeto JSON para pasar en el onclick
-                const productJsonString = JSON.stringify(p).replace(/'/g, "\\'");
-                
-                return `
-                    <div class="product-card">
-                        <img src="${imageUrl}" alt="${p.nombre}" onerror="this.src='https://placehold.co/300x200/cccccc/333333?text=Sin+Imagen'">
-                        <div style="margin-top: 12px;">
-                            <div style="background: #ff5722; color: white; display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 11px; margin-bottom: 8px;">${p.categoria}</div>
-                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">${p.nombre}</h3>
-                            <p style="font-size: 13px; color: #666; margin-bottom: 8px; height: 40px; overflow: hidden;">${p.descripcion || 'Sin descripción disponible.'}</p>
-                            <div style="color: #ffa500; font-size: 14px; margin-bottom: 8px;">⭐ ${p.rating || 'N/A'} (${p.ventas || 0} vendidos)</div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="font-size: 24px; font-weight: 700; color: #ff5722;">$${parseFloat(p.precio || 0).toFixed(2)}</span>
-                                <button onclick='agregarAlCarrito(${productJsonString})' class="btn btn-primary">Añadir</button>
-                            </div>
-                            <div style="margin-top: 8px; font-size: 12px; color: ${p.stock < 30 ? '#d32f2f' : '#4caf50'};">Stock: ${p.stock || 0}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
+        function mostrarProductos() {
+            document.getElementById('loading').style.display = 'none';
+            const container = document.getElementById('productos');
+            
+            const productosFiltrados = categoriaActiva === 'Todos'
+                ? productos
+                : productos.filter(p => p.categoria === categoriaActiva);
+                
+            if (productosFiltrados.length === 0) {
+                container.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 40px;"><p style="font-size: 24px;">No hay productos disponibles en esta categoría.</p></div>';
+                return;
+            }
+            
+            container.innerHTML = productosFiltrados.map(p => {
+                const imageUrl = getImageUrl(p);
+                
+                // Sanitizar el objeto JSON para pasar en el onclick
+                const productJsonString = JSON.stringify(p).replace(/'/g, "\\'");
+                
+                return `
+                    <div class="product-card">
+                        <img src="${imageUrl}" alt="${p.nombre}" onerror="this.src='https://placehold.co/300x200/cccccc/333333?text=Sin+Imagen'">
+                        <div style="margin-top: 12px;">
+                            <div style="background: #ff5722; color: white; display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 11px; margin-bottom: 8px;">${p.categoria}</div>
+                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">${p.nombre}</h3>
+                            <p style="font-size: 13px; color: #666; margin-bottom: 8px; height: 40px; overflow: hidden;">${p.descripcion || 'Sin descripción disponible.'}</p>
+                            <div style="color: #ffa500; font-size: 14px; margin-bottom: 8px;">⭐ ${p.rating || 'N/A'} (${p.ventas || 0} vendidos)</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 24px; font-weight: 700; color: #ff5722;">$${parseFloat(p.precio || 0).toFixed(2)}</span>
+                                <button onclick='agregarAlCarrito(${productJsonString})' class="btn btn-primary">Añadir</button>
+                            </div>
+                            <div style="margin-top: 8px; font-size: 12px; color: ${p.stock < 30 ? '#d32f2f' : '#4caf50'};">Stock: ${p.stock || 0}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
 
-        function agregarAlCarrito(producto) {
-            console.log('Agregando:', producto);
-            const existe = carrito.find(item => item.id === producto.id);
-            
-            if (existe) {
-                existe.cantidad++;
-            } else {
-                carrito.push({ ...producto, cantidad: 1 });
-            }
-            
-            actualizarCarrito();
-            
-            const btn = event.target;
-            btn.textContent = '✓ Agregado';
-            setTimeout(() => btn.textContent = 'Añadir', 1000);
-        }
+        function agregarAlCarrito(producto) {
+            console.log('Agregando:', producto);
+            const existe = carrito.find(item => item.id === producto.id);
+            
+            if (existe) {
+                existe.cantidad++;
+            } else {
+                carrito.push({ ...producto, cantidad: 1 });
+            }
+            
+            actualizarCarrito();
+            
+            const btn = event.target;
+            btn.textContent = '✓ Agregado';
+            setTimeout(() => btn.textContent = 'Añadir', 1000);
+        }
 
-        function actualizarCarrito() {
-            const count = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-            const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-            
-            document.getElementById('cartCount').textContent = count;
-            document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
-            
-            const container = document.getElementById('cartItems');
-            
-            if (carrito.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 40px; color: #999;"><p style="font-size: 48px;">🛒</p><p style="margin-top: 16px;">Carrito vacío</p></div>';
-            } else {
-                container.innerHTML = carrito.map(item => `
-                    <div style="display: flex; gap: 12px; margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 8px;">
-                        <img src="${getImageUrl(item)}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-                        <div style="flex: 1;">
-                            <div style="font-weight: 600; margin-bottom: 4px;">${item.nombre}</div>
-                            <div style="color: #ff5722; font-weight: 700;">$${parseFloat(item.precio).toFixed(2)}</div>
-                            <div style="display: flex; gap: 8px; align-items: center; margin-top: 8px;">
-                                <button onclick="cambiarCantidad(${item.id}, -1)" class="btn" style="padding: 4px 12px; background: #ddd;">−</button>
-                                <span style="font-weight: 600;">${item.cantidad}</span>
-                                <button onclick="cambiarCantidad(${item.id}, 1)" class="btn" style="padding: 4px 12px; background: #ddd;">+</button>
-                            </div>
-                        </div>
-                        <button onclick="eliminarDelCarrito(${item.id})" style="background: none; border: none; color: #d32f2f; cursor: pointer; font-size: 20px;">🗑️</button>
-                    </div>
-                `).join('');
-            }
-        }
+        function actualizarCarrito() {
+            const count = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+            
+            document.getElementById('cartCount').textContent = count;
+            document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
+            
+            const container = document.getElementById('cartItems');
+            
+            if (carrito.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 40px; color: #999;"><p style="font-size: 48px;">🛒</p><p style="margin-top: 16px;">Carrito vacío</p></div>';
+            } else {
+                container.innerHTML = carrito.map(item => `
+                    <div style="display: flex; gap: 12px; margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 8px;">
+                        <img src="${getImageUrl(item)}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; margin-bottom: 4px;">${item.nombre}</div>
+                            <div style="color: #ff5722; font-weight: 700;">$${parseFloat(item.precio).toFixed(2)}</div>
+                            <div style="display: flex; gap: 8px; align-items: center; margin-top: 8px;">
+                                <button onclick="cambiarCantidad(${item.id}, -1)" class="btn" style="padding: 4px 12px; background: #ddd;">−</button>
+                                <span style="font-weight: 600;">${item.cantidad}</span>
+                                <button onclick="cambiarCantidad(${item.id}, 1)" class="btn" style="padding: 4px 12px; background: #ddd;">+</button>
+                            </div>
+                        </div>
+                        <button onclick="eliminarDelCarrito(${item.id})" style="background: none; border: none; color: #d32f2f; cursor: pointer; font-size: 20px;">🗑️</button>
+                    </div>
+                `).join('');
+            }
+        }
 
-        function cambiarCantidad(id, cambio) {
-            const item = carrito.find(i => i.id === id);
-            if (item) {
-                item.cantidad += cambio;
-                if (item.cantidad <= 0) {
-                    eliminarDelCarrito(id);
-                } else {
-                    actualizarCarrito();
-                }
-            }
-        }
+        function cambiarCantidad(id, cambio) {
+            const item = carrito.find(i => i.id === id);
+            if (item) {
+                item.cantidad += cambio;
+                if (item.cantidad <= 0) {
+                    eliminarDelCarrito(id);
+                } else {
+                    actualizarCarrito();
+                }
+            }
+        }
 
-        function eliminarDelCarrito(id) {
-            carrito = carrito.filter(item => item.id !== id);
-            actualizarCarrito();
-        }
+        function eliminarDelCarrito(id) {
+            carrito = carrito.filter(item => item.id !== id);
+            actualizarCarrito();
+        }
 
-        function toggleCarrito() {
-            document.getElementById('cart').classList.toggle('open');
-            document.getElementById('overlay').classList.toggle('show');
-        }
+        function toggleCarrito() {
+            document.getElementById('cart').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
+        }
 
-        function cerrarCarrito() {
-            document.getElementById('cart').classList.remove('open');
-            document.getElementById('overlay').classList.remove('show');
-        }
+        function cerrarCarrito() {
+            document.getElementById('cart').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
+        }
 
-        function finalizarCompra() {
-            if (carrito.length === 0) {
-                alert('El carrito está vacío');
-                return;
-            }
-            
-            const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-            alert(`¡Compra exitosa! 🎉\nTotal: $${total.toFixed(2)}\n\nGracias por tu compra en ValenciaSport`);
-            
-            carrito = [];
-            actualizarCarrito();
-            cerrarCarrito();
-        }
+        function finalizarCompra() {
+            if (carrito.length === 0) {
+                alert('El carrito está vacío');
+                return;
+            }
+            
+            const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+            alert(`¡Compra exitosa! 🎉\nTotal: $${total.toFixed(2)}\n\nGracias por tu compra en ValenciaSport`);
+            
+            carrito = [];
+            actualizarCarrito();
+            cerrarCarrito();
+        }
 
-        cargarProductos();
-    </script>
+        cargarProductos();
+    </script>
 </body>
 </html>
